@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Product = require('../models/Product');
-const { addProduct, getAllProducts } = require('./product');
+const { addProduct, getAllProducts, getProductsbyTerm } = require('./product');
 
 dotenv.config();
 
@@ -60,6 +60,22 @@ describe('Given the Product controller', () => {
     test('error', async () => {
       Product.find.mockRejectedValue('error');
       await getAllProducts(req, res);
+      expect(res.status).toHaveBeenCalledWith(500);
+    });
+  });
+
+  describe('When getProductsByTerm is triggered', () => {
+    test('then response with matches search', async () => {
+      req.query = { term: 'algo' };
+      Product.find = jest.fn().mockReturnThis();
+
+      await getProductsbyTerm(req, res);
+      expect(res.status).toHaveBeenCalledWith(201);
+    });
+    test('then an error is occurred', async () => {
+      req.query = { term: 'algo' };
+      Product.find.mockRejectedValue('error');
+      await getProductsbyTerm(req, res);
       expect(res.status).toHaveBeenCalledWith(500);
     });
   });
