@@ -6,6 +6,8 @@ const cors = require('cors');
 const { dbConnection } = require('./config/db');
 const products = require('./products-data');
 
+const productRouter = require('./routes/product');
+
 const app = express();
 
 /** DB connection */
@@ -27,6 +29,8 @@ app.get('/products', (req, res) => {
   console.log(products);
   res.json(products);
 });
+
+app.use('/api/products', productRouter);
 
 /** Server Up */
 
