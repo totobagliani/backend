@@ -31,8 +31,6 @@ const addProduct = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  console.log(req.body);
-
   try {
     const products = await Product.find();
 
@@ -48,7 +46,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-const searchProducts = async (req, res) => {
+const getProductsbyTerm = async (req, res) => {
   const { term } = req.query;
 
   const reg = new RegExp(term, 'i');
@@ -70,4 +68,4 @@ const searchProducts = async (req, res) => {
   }
 };
 
-module.exports = { addProduct, getAllProducts, searchProducts };
+module.exports = { addProduct, getAllProducts, getProductsbyTerm };
