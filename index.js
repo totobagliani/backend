@@ -2,9 +2,14 @@ const express = require('express');
 require('dotenv').config();
 const morgan = require('morgan');
 const cors = require('cors');
+
+const { dbConnection } = require('./config/db');
 const products = require('./products-data');
 
 const app = express();
+
+/** DB connection */
+dbConnection();
 
 /** Middlewares */
 // Security
